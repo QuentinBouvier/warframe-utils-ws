@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using MarketProxy.Model;
 using MongoDB.Driver;
 
@@ -6,9 +7,11 @@ namespace MarketProxy.Repository
 {
     public interface IProxySnapshotRepository
     {
-        List<MarketSnapshot> Get();
+        Task<List<MarketSnapshot>> Get();
+        Task<MarketSnapshot> Find(string id);
+        Task<MarketSnapshot> FindByName(string name);
     }
-    
+
     public class ProxySnapshotRepository : IProxySnapshotRepository
     {
         private readonly IMongoCollection<MarketSnapshot> _marketSnapshot;
@@ -21,6 +24,12 @@ namespace MarketProxy.Repository
             this._marketSnapshot = database.GetCollection<MarketSnapshot>(settings.SnapshotCollectionName);
         }
 
-        public List<MarketSnapshot> Get() => _marketSnapshot.Find(x => true).ToList();
+        public async Task<List<MarketSnapshot>> Get() => await _marketSnapshot.Find(x => true).ToListAsync();
+
+        public async Task<MarketSnapshot> Find(string id) =>
+            await _marketSnapshot.Find(x => x.Id == id).FirstOrDefaultAsync();
+
+        public async Task<MarketSnapshot> FindByName(string name) =>
+            await _marketSnapshot.Find(x => x.Name == name).FirstOrDefaultAsync();
     }
 }

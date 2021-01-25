@@ -1,27 +1,31 @@
-﻿using MarketProxy.Model;
+﻿using System.Net;
+using System.Threading.Tasks;
 using MarketProxy.Repository;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Configuration;
 
 namespace MarketProxy.Controllers
 {
     [ApiController]
-    [Route("[controller]")]
+    [Route("Proxy/Market")]
     public class MarketProxyController
     {
-        private IConfiguration Configuration { get; }
         private readonly IProxySnapshotRepository _snapshotRepository;
-        
-        public MarketProxyController(IConfiguration configuration, IProxySnapshotRepository snapshotRepository)
+
+        public MarketProxyController(IProxySnapshotRepository snapshotRepository)
         {
-            this.Configuration = configuration;
             this._snapshotRepository = snapshotRepository;
         }
-        
+
         [HttpGet]
-        public MarketSnapshot Get()
+        public async Task<IActionResult> Get(string name)
         {
-            return _snapshotRepository.Get()[0];
+            var marketItem = await this._snapshotRepository.FindByName(name);
+            if (marketItem == null)
+            {
+                return new StatusCodeResult((int) HttpStatusCode.NotFound);
+            }
+
+            return new OkObjectResult(marketItem);
         }
     }
 }
