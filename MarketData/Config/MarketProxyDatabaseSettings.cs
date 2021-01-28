@@ -1,4 +1,4 @@
-﻿namespace MarketProxy.Model
+﻿namespace MarketData.Config
 {
     public class MarketProxyDatabaseSettings : IMarketProxyDatabaseSettings
     {

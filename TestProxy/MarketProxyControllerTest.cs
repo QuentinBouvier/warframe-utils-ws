@@ -1,8 +1,8 @@
 using System;
 using System.Threading.Tasks;
+using MarketData.Model;
+using MarketData.Repository;
 using MarketProxy.Controllers;
-using MarketProxy.Model;
-using MarketProxy.Repository;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using NUnit.Framework;

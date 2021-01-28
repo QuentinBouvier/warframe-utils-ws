@@ -1,6 +1,6 @@
 ﻿using System.Net;
 using System.Threading.Tasks;
-using MarketProxy.Repository;
+using MarketData.Repository;
 using Microsoft.AspNetCore.Mvc;
 
 namespace MarketProxy.Controllers

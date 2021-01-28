@@ -2,7 +2,7 @@
 using MongoDB.Bson;
 using MongoDB.Bson.Serialization.Attributes;
 
-namespace MarketProxy.Model
+namespace MarketData.Model
 {
     public class MarketSnapshot
     {

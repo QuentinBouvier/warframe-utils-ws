@@ -1,9 +1,10 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using MarketProxy.Model;
+using MarketData.Config;
+using MarketData.Model;
 using MongoDB.Driver;
 
-namespace MarketProxy.Repository
+namespace MarketData.Repository
 {
     public interface IProxySnapshotRepository
     {
